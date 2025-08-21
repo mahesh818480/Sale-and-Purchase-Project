@@ -1,78 +1,78 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable, OnInit } from '@angular/core';
-import { BehaviorSubject, Observable, Subject } from 'rxjs';
+import { BehaviorSubject, Observable } from 'rxjs';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CommonService implements OnInit {
-  data: any=[];
-  private apiUrl = 'http://192.168.10.14:3000';
+  data: any = [];
+
+  private apiUrl = 'https://vigilant-enigma-qw4v5ggr76rf9xr5-3000.app.github.dev/';
+
   constructor(private http: HttpClient) { }
+
   ngOnInit(): void {
-    this.getHouseData(eval);
-    this.Favourite.subscribe(res=>{
+    // Avoid calling getHouseData with 'eval'
+    this.Favourite.subscribe(res => {
       this.data = res;
-    }) 
+    });
   }
+
   HouserentDetails = new BehaviorSubject([]);
   Favourite = new BehaviorSubject([]);
   UserLogin = new BehaviorSubject('');
 
-  //MY ADDS BehavaiorsSubject...
   myadds = new BehaviorSubject([]);
-  updatemyadds(myadd:any){
-    this.myadds.next(myadd)
+  updatemyadds(myadd: any) {
+    this.myadds.next(myadd);
   }
 
-  // House Creating Data:
   createHouseData = new BehaviorSubject([]);
   getCreateHouseData(data: any) {
     this.createHouseData.next(data);
   }
-  // <><><><>.
 
   favouriteData(val: any) {
-    this.data = [...this.data , ...val]
-     this.Favourite.next(this.data);
+    this.data = [...this.data, ...val];
+    this.Favourite.next(this.data);
   }
 
   getHouseData(val: any) {
-    this.HouserentDetails.next(val)
+    this.HouserentDetails.next(val);
   }
+
   getJsonData() {
     return this.http.get('assets/Houses.json');
   }
-  // userLoginData
+
   UserBehavior(data: any) {
-    this.UserLogin.next(data)
+    this.UserLogin.next(data);
   }
+
   // <<< DB register Data >>>
-
   registerData() {
-    return this.http.get('http://192.168.10.14:3000/api/register');
-  }
-  updateRegisterData(data: any) {
-    return this.http.post('http://192.168.10.14:3000/api/update/register', data);
+    return this.http.get(this.apiUrl + 'api/register');
   }
 
-  //<<< Upadte House Data >>
+  updateRegisterData(data: any) {
+    return this.http.post(this.apiUrl + 'api/update/register', data);
+  }
 
   getDBHouseData() {
-    return this.http.get('http://192.168.10.14:3000/api/house');
-  }
-  updateHouseData(data: any) {
-    return this.http.post('http://192.168.10.14:3000/api/update/house', data);
+    return this.http.get(this.apiUrl + 'api/house');
   }
 
-  //Fav Data
+  updateHouseData(data: any) {
+    console.log(data,'67:::')
+    return this.http.post(this.apiUrl + 'api/update/house', data);
+  }
 
   updateFavData(data: any) {
-    return this.http.post('http://192.168.10.14:3000/api/update/favdata', data);
+    return this.http.post(this.apiUrl + 'api/update/favdata', data);
   }
 
-  // Forget Password post call....
   sendOtp(to: string): Observable<any> {
-    return this.http.post(`${this.apiUrl}/send-otp`, { to });
-  } 
+    return this.http.post(this.apiUrl + 'send-otp', { to });
+  }
 }

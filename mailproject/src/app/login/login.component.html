@@ -37,10 +37,9 @@
   <div class="Forget_Data">
 
     <h1>Forget Password</h1>
-    <form action="" #ForgetForm='ngForm' (ngSubmit)="Forget(ForgetForm)">
+    <form action="" #ForgetForm="ngForm" (ngSubmit)="Forget(ForgetForm)">
       <div>
-        <input class="input-box1" type="text" placeholder="Enter your name" required ngModel name="Login_Username"
-          required>
+   <input class="input-box1" type="text" placeholder="Enter your name" ngModel name="Login_Username" required>
 
         <!-- <div class="error_message" *ngIf="SubmitForm && name?.invalid  && name?.['errors']?.['required']">Uesrname is required</div> -->
       </div>

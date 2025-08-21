@@ -67,17 +67,17 @@ export class CreateHousesComponent {
             }),
             PriceInfo: new FormGroup({
                 Price: new FormControl('', Validators.required),
-                // Security: new FormControl('', Validators.required),
-                // Maintenance: new FormControl('', Validators.required),
-                BuiltArea: new FormControl('', Validators.required),
-                CarpetArea: new FormControl('', Validators.required),
+                // SecurityPrice: new FormControl('', Validators.required),
+                // MaintenancePrice: new FormControl('', Validators.required),
+                BuiltArea: new FormControl('',),
+                CarpetArea: new FormControl('',),
             }),
             RentInfo: new FormGroup({
-                Rent: new FormControl('', Validators.required),
-                Security: new FormControl('', Validators.required),
-                Maintenance: new FormControl('', Validators.required),
-                RentBuiltArea: new FormControl('', Validators.required),
-                RentCarpetArea: new FormControl('', Validators.required),
+                Rent: new FormControl('', ),
+                Security: new FormControl('',),
+                Maintenance: new FormControl('', ),
+                RentBuiltArea: new FormControl('',),
+                RentCarpetArea: new FormControl('', ),
             }),
 
             AddressInfo: new FormGroup({
@@ -160,13 +160,13 @@ export class CreateHousesComponent {
         return this.PriceInfo.controls?.['CarpetArea'] as FormControl;
     }
 
-    // get Security() {
-    //     return this.PriceInfo.controls?.['Security'] as FormControl;
-    // }
+    //  get SecurityPrice() {
+    //      return this.PriceInfo.controls?.['Security'] as FormControl;
+    //  }
 
-    // get Maintenance() {
-    //     return this.PriceInfo.controls?.['Maintenance'] as FormControl;
-    // }
+    //  get MaintenancePrice() {
+    //      return this.PriceInfo.controls?.['Maintenance'] as FormControl;
+    //  }
 
 // Rent....
 
@@ -234,15 +234,17 @@ get Maintenance() {
     }
 
     onSubmit() {
+        console.log(this.addPropertyForm.controls,'trigger234::',this.addPropertyForm)
         this.nextClicked = true;
         this.commonservice.UserLogin.subscribe((res) => {
             this.array = res;
+            console.log(this.array,'345::')
         })
         if (this.allTabsValid()) {
             this.commonservice.updateHouseData({ ...this.addPropertyForm.value, username: this.array.Username }).subscribe();
             this.router.navigate(['House']);
         } else {
-
+            console.log('trigger else:::')
         }
     }
 
@@ -250,31 +252,36 @@ get Maintenance() {
         this.router.navigate(['/']);
     }
     allTabsValid(): boolean {
-
         if (this.BasicInfo.invalid) {
+            console.log(this.formTabs.tabs[0].active,'basicInfo')
             this.formTabs.tabs[0].active = true;
             return false;
         }
 
         if (this.PriceInfo.invalid) {
+             console.log(this.formTabs.tabs[0].active,'PriceInfo',this.formTabs)
             this.formTabs.tabs[1].active = true;
             return false;
         }
         if (this.RentInfo.invalid) {
+             console.log(this.formTabs.tabs[0].active,'RentInfo')
             this.formTabs.tabs[1].active = true;
             return false;
         }
 
         if (this.AddressInfo.invalid) {
+             console.log(this.formTabs.tabs[0].active,'AddressInfo')
             this.formTabs.tabs[2].active = true;
             return false;
         }
 
         if (this.OtherInfo.invalid) {
+             console.log(this.formTabs.tabs[0].active,'OthersInfo')
             this.formTabs.tabs[3].active = true;
             return false;
         }
         if (this.Photos.invalid) {
+             console.log(this.formTabs.tabs[0].active,'PhotoInfo')
             this.formTabs.tabs[4].active = true;
             return false;
         }

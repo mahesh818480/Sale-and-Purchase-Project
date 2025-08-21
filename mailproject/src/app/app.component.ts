@@ -43,7 +43,7 @@ export class AppComponent {
     private _router: Router,private darkModeService: DarkModeService) { }
   ngOnInit() {
     // this.Dark_Mode = false;
-    this.store.dispatch(signinload())
+    //this.store.dispatch(signinload())
     this.store.select(registerApiData).subscribe((res:any)=>{
     })
     this.service.UserLogin.subscribe((res) => {

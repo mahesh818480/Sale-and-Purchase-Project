@@ -56,7 +56,6 @@ export class LoginComponent {
   OnLogin(loginForm: NgForm) {
     this.authService.addUsers(loginForm.value)
     this.authService.userData.subscribe((res: any) => {
-      console.log(res,'5999::::::')
       const user = res
       if (user) {
         this.loader = true;
@@ -82,11 +81,12 @@ export class LoginComponent {
     this.loader = false;
     this.ForegetFormsData = false;
     this.Otpmtk = true;
-   
-    this.store.select(registerApiData).subscribe((res: any) => {
-      const user = res.find((res:any)=> res.Email === ForgetForm.value.Login_Username);
+    const forgetUser = ForgetForm.value.Login_Username
+    // this.store.select(registerApiData).subscribe((res: any) => {
+       this.commanservice.registerData().subscribe((res: any) => {
+      const user = res.find((res:any)=> res.Username === forgetUser);
       if (user?.Email) {
-        this.commanservice.sendOtp(ForgetForm.value).subscribe((res)=>{
+        this.commanservice.sendOtp(user.Email).subscribe((res)=>{
          this.mailotp = res.OTP;
          this.RegPassword = user.Password;
          this.RegUserName = user.Username

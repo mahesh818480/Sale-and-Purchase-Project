@@ -27,12 +27,12 @@ export class AuthService {
   }
   addUsers(user: any) {
     let UserArray: any = [];
-    //this.commanservice.registerData().subscribe((res: any) => {
-    this.store.select(registerApiData).subscribe((res: any) => {
+    this.commanservice.registerData().subscribe((res: any) => {
+    // this.store.select(registerApiData).subscribe((res: any) => {
       UserArray = res;
       const user123 = UserArray.find((p: any) =>
-        p.Email === user.Login_Username && p.Password === user.Login_Password
-      )
+        p.Username === user.Login_Username && p.Password === user.Login_Password
+    )
       this.isloggedIn = user123 ? true : false;
       this.userData.next(user123)
     })
