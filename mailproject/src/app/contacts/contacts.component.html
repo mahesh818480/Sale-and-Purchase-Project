@@ -1,1 +1,10 @@
 <p>contacts works!</p>
+<!-- 
+<div *ngFor="let user of registeredUsersData">
+    <p (click)="SelectUser(user)">{{user.Username}}</p>
+</div> -->
+<input [(ngModel)]="number" placeholder="Send Message" />
+<input [(ngModel)]="message" placeholder="Message" />
+<button (click)="send()">Submit</button>
+
+

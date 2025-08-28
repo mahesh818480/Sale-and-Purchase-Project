@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express();
-
+const axios = require('axios');
 const { MongoClient } = require('mongodb');
 const bodyParser = require('body-parser');
 const cors = require('cors');
@@ -9,6 +9,11 @@ const http = require('http');
 const server = http.Server(app);
 
 const port = process.env.PORT || 3000;
+
+// UltraMsg ID & Token instance140872
+const INSTANCE_ID = 'instance140872';
+const TOKEN = 'walu974tbd2uz8h1';
+//walu974tbd2uz8h1
 
 // ✅ Middleware
 app.use(cors({
@@ -108,7 +113,6 @@ app.post('/api/update/favdata', async (req, res) => {
       { $set: { selectFav: req.body.selectFav } }
     );
 
-    console.log("1 document updated");
     res.json({ valid: true });
   } catch (error) {
     console.error("POST /api/update/favdata error:", error);
@@ -144,6 +148,23 @@ app.post('/send-otp', (req, res) => {
       res.json({ success: true, message: 'OTP sent successfully', OTP: `${otp}` });
     }
   });
+});
+
+// send wtsup Message
+app.post('send-whatsapp', async (req, res) => {
+  const { to, message } = req.body;
+console.log(req.body,'156:::')
+  try {
+    const response = await axios.post(`https://api.ultramsg.com/${INSTANCE_ID}/messages/chat`, {
+      token: TOKEN,
+      to: to,
+      body: message,
+    });
+
+    res.send({ success: true, data: response.data });
+  } catch (err) {
+    res.status(500).send({ success: false, error: err.message });
+  }
 });
 
 // ✅ Start Server

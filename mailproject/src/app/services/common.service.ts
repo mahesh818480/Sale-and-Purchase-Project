@@ -75,4 +75,8 @@ export class CommonService implements OnInit {
   sendOtp(to: string): Observable<any> {
     return this.http.post(this.apiUrl + 'send-otp', { to });
   }
+
+  sendMessage(to: string, message: string) {
+  return this.http.post(this.apiUrl + 'send-whatsapp', { to, message });
+}
 }

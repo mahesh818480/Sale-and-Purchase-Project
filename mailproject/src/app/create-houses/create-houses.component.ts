@@ -69,17 +69,17 @@ export class CreateHousesComponent {
                 Price: new FormControl('', Validators.required),
                 // SecurityPrice: new FormControl('', Validators.required),
                 // MaintenancePrice: new FormControl('', Validators.required),
-                BuiltArea: new FormControl('',),
-                CarpetArea: new FormControl('',),
+                BuiltArea: new FormControl('',Validators.required),
+                CarpetArea: new FormControl('',Validators.required),
             }),
+            
             RentInfo: new FormGroup({
-                Rent: new FormControl('', ),
-                Security: new FormControl('',),
-                Maintenance: new FormControl('', ),
-                RentBuiltArea: new FormControl('',),
-                RentCarpetArea: new FormControl('', ),
+                Rent: new FormControl('',Validators.required),
+                Security: new FormControl('',Validators.required),
+                Maintenance: new FormControl('',Validators.required),
+                RentBuiltArea: new FormControl('',Validators.required),
+                RentCarpetArea: new FormControl('',Validators.required),
             }),
-
             AddressInfo: new FormGroup({
                 FloorNo: new FormControl('', Validators.required),
                 TotalFloor: new FormControl('', Validators.required),
@@ -97,7 +97,38 @@ export class CreateHousesComponent {
                 file: new FormControl('')
             })
         }),
-            this.arrayForms.push(this.addPropertyForm.value);
+        this.arrayForms.push(this.addPropertyForm.value);
+        console.log(this.Photos,'123:::File')
+        
+  // Initially disable both, then enable based on selection
+//  this.addPropertyForm.get('PriceInfo')?.disable();
+  //this.addPropertyForm.get('RentInfo')?.disable();
+
+  // Subscribe to changes
+  console.log(this.addPropertyForm.get('BasicInfo.SellRent'),'32')
+  this.SellRent.valueChanges.subscribe((value) =>{
+    //console.log(value,'121:::')
+    if (value === 1) { // Sell
+        console.log(value,'trigger::1')
+      this.addPropertyForm.get('PriceInfo')?.enable();
+      this.addPropertyForm.get('RentInfo')?.disable();
+    } else if (value === 2) { // Rent
+         console.log(value,'trigger::2')
+      this.addPropertyForm.get('RentInfo')?.enable();
+      this.addPropertyForm.get('PriceInfo')?.disable();
+    }
+  })
+//   this.addPropertyForm.get('BasicInfo.SellRent')?.valueChanges.subscribe((value) => {
+    // if (value === 1) { // Sell
+    //     console.log(value,'trigger::1')
+    //   this.addPropertyForm.get('PriceInfo')?.enable();
+    //   this.addPropertyForm.get('RentInfo')?.disable();
+    // } else if (value === 2) { // Rent
+    //      console.log(value,'trigger::2')
+    //   this.addPropertyForm.get('RentInfo')?.enable();
+    //   this.addPropertyForm.get('PriceInfo')?.disable();
+    // }
+//   });
     }
 
 
