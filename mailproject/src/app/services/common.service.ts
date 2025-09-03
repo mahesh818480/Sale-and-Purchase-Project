@@ -77,6 +77,12 @@ export class CommonService implements OnInit {
   }
 
   sendMessage(to: string, message: string) {
+    console.log(to,'80:::',message)
   return this.http.post(this.apiUrl + 'send-whatsapp', { to, message });
+}
+
+getSenderMsg() {
+  // Instead of hitting UltraMsg directly, hit your backend
+  return this.http.get(this.apiUrl + 'get-messages');
 }
 }

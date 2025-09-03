@@ -151,9 +151,8 @@ app.post('/send-otp', (req, res) => {
 });
 
 // send wtsup Message
-app.post('send-whatsapp', async (req, res) => {
+app.post('/send-whatsapp', async (req, res) => {
   const { to, message } = req.body;
-console.log(req.body,'156:::')
   try {
     const response = await axios.post(`https://api.ultramsg.com/${INSTANCE_ID}/messages/chat`, {
       token: TOKEN,
@@ -164,6 +163,23 @@ console.log(req.body,'156:::')
     res.send({ success: true, data: response.data });
   } catch (err) {
     res.status(500).send({ success: false, error: err.message });
+  }
+});
+
+// get messages from UltraMsg
+app.get('/get-messages', async (req, res) => {
+  try {
+    const response = await axios.get(`https://api.ultramsg.com/${INSTANCE_ID}/messages`, {
+      params: {
+        token: TOKEN,
+        page: 1,
+        limit: 100,
+        status: 'sent'
+      }
+    });
+    res.json(response.data);
+  } catch (error) {
+    res.status(500).json({ error: error.message });
   }
 });
 

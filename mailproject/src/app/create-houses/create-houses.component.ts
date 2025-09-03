@@ -66,19 +66,19 @@ export class CreateHousesComponent {
                 adress: new FormArray([])
             }),
             PriceInfo: new FormGroup({
-                Price: new FormControl('', Validators.required),
+                Price: new FormControl('', ),
                 // SecurityPrice: new FormControl('', Validators.required),
                 // MaintenancePrice: new FormControl('', Validators.required),
-                BuiltArea: new FormControl('',Validators.required),
-                CarpetArea: new FormControl('',Validators.required),
+                BuiltArea: new FormControl('',),
+                CarpetArea: new FormControl('',),
             }),
             
             RentInfo: new FormGroup({
-                Rent: new FormControl('',Validators.required),
-                Security: new FormControl('',Validators.required),
-                Maintenance: new FormControl('',Validators.required),
-                RentBuiltArea: new FormControl('',Validators.required),
-                RentCarpetArea: new FormControl('',Validators.required),
+                Rent: new FormControl('',),
+                Security: new FormControl('',),
+                Maintenance: new FormControl('',),
+                RentBuiltArea: new FormControl('',),
+                RentCarpetArea: new FormControl('',),
             }),
             AddressInfo: new FormGroup({
                 FloorNo: new FormControl('', Validators.required),
