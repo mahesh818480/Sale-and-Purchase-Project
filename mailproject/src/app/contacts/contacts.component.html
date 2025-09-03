@@ -7,4 +7,16 @@
 <input [(ngModel)]="message" placeholder="Message" />
 <button (click)="send()">Submit</button>
 
+<!-- Sharer Side -->
+<button (click)="startScreenShare()">Start Sharing</button>
+<p>Room ID: {{ roomId }}</p>
+
+<!-- Viewer Side -->
+<input type="text" [(ngModel)]="joinRoomId" placeholder="Enter Room ID" />
+<button (click)="joinScreenShare(joinRoomId)">Join Screen Share</button>
+
+<!-- Video Views -->
+<video #localVideo autoplay muted></video>
+<video #remoteVideo autoplay></video>
+
 

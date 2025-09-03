@@ -34,6 +34,21 @@ import { EffectsModule } from '@ngrx/effects';
 import { ApiEffects } from './store/house.effects';
 import { DarkModeToggleComponent } from './dark-mode-toggle/dark-mode-toggle.component';
 import { NgxOtpInputModule } from 'ngx-otp-input';
+// Import AngularFire modules
+// import { AngularFireModule } from '@angular/fire/compat';   // Compatibility mode recommended
+import { AngularFireAuthModule } from '@angular/fire/compat/auth'; // If you need Authentication
+// import { AngularFirestoreModule } from '@angular/fire/compat/firestore'; // If you use Firestore DB
+import { AngularFireModule } from '@angular/fire/compat';
+import { AngularFirestoreModule } from '@angular/fire/compat/firestore';
+const firebaseConfig = {
+  apiKey: "AIzaSyCpxi1YzfNfn1fuLZUms9LCzcZEHXbmzlo",
+  authDomain: "screensharing-c0e02.firebaseapp.com",
+  projectId: "screensharing-c0e02",
+  storageBucket: "screensharing-c0e02.firebasestorage.app",
+  messagingSenderId: "1098847033688",
+  appId: "1:1098847033688:web:afa52d81ab163e383f6d2d",
+  measurementId: "G-8Q03Y7SDYM"
+};
 
 @NgModule({
   declarations: [
@@ -69,7 +84,9 @@ import { NgxOtpInputModule } from 'ngx-otp-input';
     BrowserAnimationsModule,
     StoreModule.forRoot({data:api_Reducer}),
     EffectsModule.forRoot([ApiEffects]),
-    
+     AngularFireModule.initializeApp(firebaseConfig),  // Initialize Firebase
+    AngularFireAuthModule,        // Firebase Authentication module (optional)
+    AngularFirestoreModule        // Firestore module (optional)
   ],
   providers: [GuardGuard,AuthService,AlertyfyService,DatePipe],
   bootstrap: [AppComponent]
